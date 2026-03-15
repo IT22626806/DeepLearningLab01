@@ -22,7 +22,9 @@ from src.config import (
     FEATURE_LIST_PATH, SCALER_PATH, XGB_PARAMS, RANDOM_SEED
 )
 
-NON_FEATURE_COLS = ["window_start", "next_weight", "weight_gain", "Weight_mean", "Length_mean"]
+# Exclude only metadata and future-leaking columns, not historical weight/length values
+# Weight_mean and Length_mean are valid predictors of next weight
+NON_FEATURE_COLS = ["window_start", "next_weight", "weight_gain"]
 
 
 def get_features_and_target(df):

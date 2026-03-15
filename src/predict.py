@@ -14,7 +14,8 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import argparse
 import pickle
 import pandas as pd
-from src.config import BEST_MODEL_PATH, FEATURE_LIST_PATH
+from sklearn.linear_model import LinearRegression
+from src.config import BEST_MODEL_PATH, FEATURE_LIST_PATH, SCALER_PATH
 
 
 def predict(input_path: str, output_path: str):
@@ -40,12 +41,21 @@ def predict(input_path: str, output_path: str):
         raise ValueError(f"Input file is missing required columns: {missing_cols}")
 
     X = df[feature_cols]
+
+    # Apply scaler if the best model is LinearRegression
+    if isinstance(model, LinearRegression) and os.path.exists(SCALER_PATH):
+        with open(SCALER_PATH, "rb") as f:
+            scaler = pickle.load(f)
+        X = scaler.transform(X)
+
     preds = model.predict(X)
 
     output_df = df.copy()
     output_df["predicted_next_weight"] = preds.round(4)
 
-    os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
+    output_dir = os.path.dirname(os.path.abspath(output_path))
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
     output_df.to_csv(output_path, index=False)
     print(f"Predictions saved to {output_path}")
     print(f"Sample predictions: {preds[:5].round(4)}")

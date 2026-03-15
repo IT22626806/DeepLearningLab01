@@ -80,7 +80,8 @@ SENSOR_COLUMNS = [
 TARGET_COLUMN = "next_weight"  # Will be set in step07
 
 # Aggregation window size (pandas offset string)
-AGGREGATION_WINDOW = "6h"
+# Using 1h to retain enough rows for meaningful model training
+AGGREGATION_WINDOW = "1h"
 
 # Lag and rolling window sizes
 LAG_PERIODS = [1, 2, 3]

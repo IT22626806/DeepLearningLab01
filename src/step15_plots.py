@@ -8,14 +8,16 @@ import os
 import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+import json
 import pickle
 import pandas as pd
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
 from src.config import (
-    TEST_PATH, FEATURE_LIST_PATH,
+    TEST_PATH, FEATURE_LIST_PATH, SCALER_PATH, TEST_RESULTS_PATH,
     BEST_MODEL_PATH, RF_MODEL_PATH, XGB_MODEL_PATH,
     FIGURES_DIR
 )
@@ -36,9 +38,24 @@ def create_result_plots():
     with open(XGB_MODEL_PATH, "rb") as f:
         xgb_model = pickle.load(f)
 
+    # Determine best model name from test results
+    best_model_name = "XGBoost"
+    if os.path.exists(TEST_RESULTS_PATH):
+        with open(TEST_RESULTS_PATH, "r") as f:
+            test_results = json.load(f)
+        best_model_name = test_results.get("best_model", "XGBoost")
+
     X_test = test[feature_cols]
     y_test = test["next_weight"]
-    preds = best_model.predict(X_test)
+
+    # Use scaler if best model is LinearRegression
+    if isinstance(best_model, LinearRegression):
+        with open(SCALER_PATH, "rb") as f:
+            scaler = pickle.load(f)
+        preds = best_model.predict(scaler.transform(X_test))
+    else:
+        preds = best_model.predict(X_test)
+
     residuals = y_test.values - preds
 
     # Predicted vs Actual
@@ -48,7 +65,7 @@ def create_result_plots():
     ax.plot([mn, mx], [mn, mx], "r--", linewidth=1.5, label="Perfect Prediction")
     ax.set_xlabel("Actual Next Weight (g)")
     ax.set_ylabel("Predicted Next Weight (g)")
-    ax.set_title("Predicted vs Actual — Best Model (XGBoost)")
+    ax.set_title(f"Predicted vs Actual — Best Model ({best_model_name})")
     ax.legend()
     plt.tight_layout()
     plt.savefig(os.path.join(FIGURES_DIR, "predicted_vs_actual.png"))
@@ -60,7 +77,7 @@ def create_result_plots():
     ax.axhline(0, color="black", linewidth=1, linestyle="--")
     ax.set_xlabel("Predicted Next Weight (g)")
     ax.set_ylabel("Residual (Actual - Predicted)")
-    ax.set_title("Residual Plot — Best Model (XGBoost)")
+    ax.set_title(f"Residual Plot — Best Model ({best_model_name})")
     plt.tight_layout()
     plt.savefig(os.path.join(FIGURES_DIR, "residual_plot.png"))
     plt.close()

@@ -35,12 +35,13 @@ def decide_target():
     reason = (
         "next_weight was chosen over weight_gain because:\n"
         "1. It gives an absolute target value directly interpretable by farmers.\n"
-        "2. weight_gain is often near zero or slightly positive between consecutive readings,\n"
-        "   making it harder to learn a meaningful signal.\n"
-        "3. Predicting the next absolute weight is standard in fish growth modeling.\n"
-        f"4. Consecutive duplicate Weight rows: {consec_dups} ({consec_dup_pct:.1f}%),\n"
-        "   confirming that raw Weight repeats frequently — shifting forward gives more\n"
-        "   meaningful variation as the prediction target."
+        "2. weight_gain between consecutive aggregation windows is a very small delta\n"
+        "   relative to the absolute weight, making it a noisier and harder signal to learn.\n"
+        "3. Predicting the next absolute weight is standard in fish growth modeling and\n"
+        "   enables direct comparisons with known fish growth curves.\n"
+        f"4. Consecutive duplicate Weight rows in raw data: {consec_dups} ({consec_dup_pct:.1f}%).\n"
+        "   After aggregation into time windows, each window has a distinct mean Weight,\n"
+        "   so predicting the next window's weight is a well-defined regression problem."
     )
 
     print(f"\nChosen target: {chosen_target}")
