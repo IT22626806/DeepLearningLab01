@@ -1,0 +1,7 @@
+{
+  "best_model": "/home/runner/work/DeepLearningLab01/DeepLearningLab01/models/best_model.pkl",
+  "feature_list": "/home/runner/work/DeepLearningLab01/DeepLearningLab01/models/feature_list.pkl",
+  "scaler": "/home/runner/work/DeepLearningLab01/DeepLearningLab01/models/scaler.pkl",
+  "sample_input": "/home/runner/work/DeepLearningLab01/DeepLearningLab01/models/sample_input.csv",
+  "sample_output": "/home/runner/work/DeepLearningLab01/DeepLearningLab01/models/sample_output.json"
+}

@@ -1,0 +1,27 @@
+MODELING TARGET DECISION
+==================================================
+
+Chosen target column: next_weight
+
+Reason:
+next_weight was chosen over weight_gain because:
+1. It gives an absolute target value directly interpretable by farmers.
+2. weight_gain is often near zero or slightly positive between consecutive readings,
+   making it harder to learn a meaningful signal.
+3. Predicting the next absolute weight is standard in fish growth modeling.
+4. Consecutive duplicate Weight rows: 2 (0.3%),
+   confirming that raw Weight repeats frequently — shifting forward gives more
+   meaningful variation as the prediction target.
+
+Weight value counts (top 10):
+Weight
+18.03     2
+69.36     2
+80.99     2
+99.74     2
+161.51    2
+221.37    2
+247.24    2
+291.01    2
+294.96    2
+10.72     1

@@ -1,0 +1,9 @@
+SPLIT SUMMARY
+========================================
+Total rows: 46
+Train rows: 32 (69.6%) — 2023-01-02 12:00:00+00:00 to 2023-09-01 12:00:00+00:00
+Val rows:   7 (15.2%) — 2023-09-01 18:00:00+00:00 to 2023-09-03 06:00:00+00:00
+Test rows:  7 (15.2%) — 2023-09-03 12:00:00+00:00 to 2023-09-05 00:00:00+00:00
+
+Split method: Chronological (no random shuffling)
+Train ratio: 0.7, Val ratio: 0.15
