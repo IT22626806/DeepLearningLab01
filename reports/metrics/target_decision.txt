@@ -1,0 +1,28 @@
+MODELING TARGET DECISION
+==================================================
+
+Chosen target column: next_weight
+
+Reason:
+next_weight was chosen over weight_gain because:
+1. It gives an absolute target value directly interpretable by farmers.
+2. weight_gain between consecutive aggregation windows is a very small delta
+   relative to the absolute weight, making it a noisier and harder signal to learn.
+3. Predicting the next absolute weight is standard in fish growth modeling and
+   enables direct comparisons with known fish growth curves.
+4. Consecutive duplicate Weight rows in raw data: 2 (0.3%).
+   After aggregation into time windows, each window has a distinct mean Weight,
+   so predicting the next window's weight is a well-defined regression problem.
+
+Weight value counts (top 10):
+Weight
+18.03     2
+69.36     2
+80.99     2
+99.74     2
+161.51    2
+221.37    2
+247.24    2
+291.01    2
+294.96    2
+10.72     1

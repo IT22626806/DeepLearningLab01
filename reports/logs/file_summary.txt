@@ -1,0 +1,18 @@
+============================================================
+FILE SUMMARY REPORT
+============================================================
+
+Total CSV files found: 3
+Directory: /home/runner/work/DeepLearningLab01/DeepLearningLab01/data/raw
+
+File: feed1.csv
+  Rows: 200
+  Columns (11): ['created_at', 'entry_id', 'TEMPERATURE', 'TURBIDITY', 'DISSOLVED OXYGEN', 'pH', 'AMMONIA', 'NITRATE', 'Population', 'Length', 'Weight']
+
+File: feed2.csv
+  Rows: 200
+  Columns (11): ['created_at', 'entry_id', 'TEMPERATURE', 'TURBIDITY', 'DISSOLVED OXYGEN', 'pH', 'AMMONIA', 'NITRATE', 'Population', 'Lenght', 'Weight']
+
+File: feed3.csv
+  Rows: 200
+  Columns (11): ['created_at', 'entry_id', 'TEMPERATURE', 'TURBIDITY', 'DISSOLVED OXYGEN', 'pH', 'AMMONIA', 'NITRATE', 'Population', 'Length', 'Weight']

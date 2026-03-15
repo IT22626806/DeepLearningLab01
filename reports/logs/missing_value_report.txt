@@ -1,0 +1,17 @@
+MISSING VALUE REPORT
+========================================
+                  missing_count  missing_pct
+created_at                    0          0.0
+entry_id                      0          0.0
+TEMPERATURE                   0          0.0
+TURBIDITY                     0          0.0
+DISSOLVED OXYGEN              0          0.0
+pH                            0          0.0
+AMMONIA                       0          0.0
+NITRATE                       0          0.0
+Population                    0          0.0
+Length                        0          0.0
+Weight                        0          0.0
+source_file                   0          0.0
+
+Duplicate rows removed: 0
